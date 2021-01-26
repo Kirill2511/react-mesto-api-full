@@ -9,7 +9,7 @@
 
 ## Локальная установка
 
-1. git clone https://github.com/ps-fedorova/news-explorer-api-full.git
+1. git clone https://github.com/Kirill2511/react-mesto-api-full.git
 2. cd news-explorer-api-full
 3. npm i
 
