@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const { auth } = require('./middlewares/auth');
-const { rateLimit } = require('./middlewares/expressRateLimit');
+const { limit } = require('./middlewares/expressRateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const usersRouter = require('./routes/users.js');
@@ -33,7 +33,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(requestLogger);
 
 app.use(helmet());
-app.use(rateLimit);
+app.use(limit);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
