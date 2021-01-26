@@ -1,29 +1,12 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const BadRequestError = require('../errors/400_BadRequestError');
+const NotFoundError = require('../errors/404_NotFoundError');
+const ConflictError = require('../errors/409_ConflictError');
+const { SUCCESS, CLIENT_ERROR } = require('../libs/statusMessages');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
-
-/*
-module.exports.getUsers = (req, res) => {
-  User.find({})
-    .then((users) => {
-      res.status(200).send({ users });
-    })
-    .catch((err) => {
-      res.status(404).send({ message: `Запрашиваемый ресурс не найден ${err}` });
-    });
-};
-
-module.exports.getUser = (req, res) => {
-  User.findById(req.params._id)
-    .orFail(new Error('Не найдено'))
-    .then((user) => res.status(200).send({ user }))
-    .catch(() => {
-      res.status(404).send({ message: 'Введён неправильный id' });
-    });
-};
-*/
 
 module.exports.createUser = (req, res, next) => {
   const {
@@ -36,7 +19,7 @@ module.exports.createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'MongoError' && err.code === 11000) {
-        throw new Error(res.status(409).send({ message: 'Пользователь с таким email уже зарегистрирован' }));
+        throw new ConflictError({ message: CLIENT_ERROR.CONFLICT });
       } else next(err);
     })
     .then((user) => res.status(201).send({
@@ -58,7 +41,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       })
-        .send({ message: 'Авторизация прошла успешно' });
+        .send({ message: SUCCESS.AUTHORIZATION });
     })
     .catch(next);
 };
@@ -73,7 +56,7 @@ module.exports.getUser = (req, res, next) => {
   User.findById(req.params._id)
     .orFail()
     .catch(() => {
-      throw new Error(res.status(404).send({ message: 'Пользователь не найден' }));
+      throw new NotFoundError({ message: CLIENT_ERROR.USER_NOT_FOUND });
     })
     .then((user) => res.send({ data: user }))
     .catch(next);
@@ -83,11 +66,11 @@ module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .orFail(() => new Error(res.status(404).send({ message: 'Пользователь не найден' })))
+    .orFail(() => new NotFoundError({ message: CLIENT_ERROR.USER_NOT_FOUND }))
     .catch((err) => {
-      if (err instanceof res.status(404)) {
+      if (err instanceof NotFoundError) {
         throw err;
-      } throw new Error(res.status(400).send({ message: `${err.message}` }));
+      } throw new BadRequestError({ message: `${err.message}` });
     })
     .then((user) => res.send({ data: user }))
     .catch(next);
@@ -97,11 +80,11 @@ module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .orFail(() => new Error(res.status(404).send({ message: 'Пользователь не найден' })))
+    .orFail(() => new NotFoundError({ message: CLIENT_ERROR.USER_NOT_FOUND }))
     .catch((err) => {
-      if (err instanceof res.status(404)) {
+      if (err instanceof NotFoundError) {
         throw err;
-      } throw new Error(res.status(400).send({ message: `${err.message}` }));
+      } throw new BadRequestError({ message: `${err.message}` });
     })
     .then((newAvatar) => res.send({ data: newAvatar }))
     .catch(next);
