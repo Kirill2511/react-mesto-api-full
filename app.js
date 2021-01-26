@@ -8,8 +8,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const { auth } = require('./middlewares/auth');
-// const { rateLimit } = require('./middlewares/expressRateLimit');
-// const { requestLogger, errorLogger } = require('./middlewares/winston');
+const { rateLimit } = require('./middlewares/expressRateLimit');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const usersRouter = require('./routes/users.js');
 const cardsRouter = require('./routes/cards.js');
@@ -30,10 +30,10 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   .then(() => { console.log('База данных подключена'); })
   .catch((err) => { console.log(`Ошибка при подключении базы данных: ${err}`); });
 
-// app.use(requestLogger);
+app.use(requestLogger);
 
 app.use(helmet());
-// app.use(rateLimit);
+app.use(rateLimit);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,7 +50,7 @@ app.post('/signup', createUser);
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, cardsRouter);
 
-// app.use(errorLogger);
+app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   if (err.status !== '500') {
