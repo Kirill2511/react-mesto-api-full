@@ -14,7 +14,7 @@ const NotFoundError = require('./errors/404_NotFoundError');
 const { auth } = require('./middlewares/auth');
 const { limit } = require('./middlewares/expressRateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// const { validateRegister, validateLogin } = require('./middlewares/celebrateValidation/celebrateValidation');
+const { validateRegister, validateLogin } = require('./middlewares/celebrateValidation/celebrateValidation');
 
 const { SERVER_ERROR, CLIENT_ERROR } = require('./libs/statusMessages');
 
@@ -53,8 +53,8 @@ app.use('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signin', validateLogin, login);
+app.post('/signup', validateRegister, createUser);
 
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, cardsRouter);
@@ -66,6 +66,15 @@ app.use(() => {
 app.use(errorLogger);
 
 app.use(errors());
+
+app.use((err, req, res, next) => {
+  if (err.status !== '500') {
+    res.status(err.status).send(err.message);
+    return;
+  }
+  res.status(500).send({ message: `${SERVER_ERROR.INTERNAL_SERVER_ERROR}: ${err.message}` });
+  next();
+});
 
 app.listen(PORT, () => {
   console.log(`Приложение запущено, порт ${PORT}`);
