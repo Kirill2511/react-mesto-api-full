@@ -4,16 +4,8 @@ const { CLIENT_ERROR } = require('../libs/statusMessages');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const extractBearerToken = (header) => header.replace('Bearer ', '');
-
 module.exports.auth = (req, res, next) => {
-  const { authorization } = req.headers;
-
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return UnauthorizedError(res);
-  }
-
-  const token = extractBearerToken(authorization);
+  const token = req.cookies.jwt;
 
   let payload;
   try {
