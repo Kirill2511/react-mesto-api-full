@@ -12,17 +12,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: min(2),
     maxlength: max(30),
-    required: requiredTrue,
   },
   about: {
     type: String,
     minlength: min(2),
     maxlength: max(30),
-    required: requiredTrue,
   },
   avatar: {
     type: String,
-    required: requiredTrue,
     validate: {
       validator(link) {
         return validator.isURL(link);
