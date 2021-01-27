@@ -53,7 +53,7 @@ app.use('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', validateLogin, login);
+app.post('/singin', validateLogin, login);
 app.post('/signup', validateRegister, createUser);
 
 app.use('/users', auth, usersRouter);
