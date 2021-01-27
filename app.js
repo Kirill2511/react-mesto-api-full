@@ -14,7 +14,7 @@ const NotFoundError = require('./errors/404_NotFoundError');
 const { auth } = require('./middlewares/auth');
 const { limit } = require('./middlewares/expressRateLimit');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { validateRegister, validateLogin } = require('./middlewares/celebrateValidation/celebrateValidation');
+// const { validateRegister, validateLogin } = require('./middlewares/celebrateValidation/celebrateValidation');
 
 const { SERVER_ERROR, CLIENT_ERROR } = require('./libs/statusMessages');
 
@@ -53,8 +53,8 @@ app.use('/crash-test', () => {
   }, 0);
 });
 
-app.post('/singin', validateLogin, login);
-app.post('/signup', validateRegister, createUser);
+app.post('/singin', login);
+app.post('/signup', createUser);
 
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, cardsRouter);
