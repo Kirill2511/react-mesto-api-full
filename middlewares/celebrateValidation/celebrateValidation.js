@@ -6,7 +6,7 @@ const {
 //
 module.exports.validateRegister = celebrate({
   body: Joi.object().keys({
-    name, about, avatar, email, password,
+    about, avatar, email, password,
   })
     .messages(excessObjects),
 });
