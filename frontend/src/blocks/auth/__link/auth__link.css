@@ -1,0 +1,9 @@
+.auth__link {
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+.auth__link:hover {
+  opacity: 0.6;
+}

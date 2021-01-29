@@ -1,0 +1,19 @@
+.header__button-logout {
+  font-size: 18px;
+  line-height: 22px;
+  margin-left: 24px;
+  transition: opacity 0.2s ease-in;
+  text-align: right;
+  text-decoration: none;
+  color: #A9A9A9;
+}
+
+.header__button-logout:hover {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 425px){
+  .header__button-logout {
+    margin: auto;
+  }
+}

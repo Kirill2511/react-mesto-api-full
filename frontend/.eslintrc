@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "react-app",
+    "prettier",
+    "airbnb-base"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-quotes": [1, "prefer-double"],
+    "no-underscore-dangle": "off",
+    "linebreak-style": 0,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-shadow": "off",
+    "class-methods-use-this": ["error", { "exceptMethods": ["_getResponseData"] }],
+  },
+  "plugins": [
+    "prettier",
+    "react",
+    "react-hooks"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
+  }
+}

@@ -1,0 +1,33 @@
+@import url(__logo/header__logo.css);
+@import url(__link/header__link.css);
+@import url(__button-logout/header__button-logout.css);
+@import url(__email/header__email.css);
+@import url(__section/header__section.css);
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  justify-content: space-between;
+  max-width: 882px;
+  margin: auto;
+  padding-top: 45px;
+  padding-bottom: 0;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    padding-right: 48px;
+    padding-left: 48px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    flex-wrap: wrap;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}

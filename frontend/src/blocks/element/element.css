@@ -1,0 +1,15 @@
+@import url(__delete/element__delete.css);
+@import url(__image/element__image.css);
+@import url(__title/element__title.css);
+@import url(__container/element__container.css);
+@import url(__heart/element__heart.css);
+@import url(__count-likes/card__count-likes.css);
+
+.element {
+  line-height: 0;
+  position: relative;
+  align-self: center;
+  width: 284px;
+  list-style: none;
+  justify-self: center;
+}
