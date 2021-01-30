@@ -16,7 +16,7 @@
 
 ## Страница проекта
 
-[Перейти>](https://kirill25111.students.nomoredomains.work/)
+[Перейти>](https://kirill251111.students.nomoredomains.work)
 
 
 ## Технологии

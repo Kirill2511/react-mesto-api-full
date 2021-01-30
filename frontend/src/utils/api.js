@@ -84,7 +84,7 @@ export default class Api {
 }
 
 export const api = new Api({
-  url: 'https://api.kirill25111.students.nomoredomains.work',
+  url: 'https://api.kirill251111.students.nomoredomains.work',
   headers: {
     'Content-Type': 'application/json',
   },
