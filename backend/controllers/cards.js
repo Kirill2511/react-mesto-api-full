@@ -1,7 +1,6 @@
 const Card = require('../models/card');
 const BadRequestError = require('../errors/400_BadRequestError');
 const NotFoundError = require('../errors/404_NotFoundError');
-const ForbiddenError = require('../errors/403_ForbiddenError');
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
@@ -25,13 +24,12 @@ module.exports.deleteCard = (req, res, next) => {
   const { id } = req.params;
 
   Card.findById(id)
-    .orFail()
     .then((card) => {
       if (!card) {
-        throw new ForbiddenError({ message: 'Недостаточно прав для выполнения операции' });
+        throw new NotFoundError({ message: 'Недостаточно прав для выполнения операции' });
       }
       if (JSON.stringify(card.owner) !== JSON.stringify(req.user._id)) {
-        throw new ForbiddenError({ message: 'Недостаточно прав для выполнения операции' });
+        throw new NotFoundError({ message: 'Недостаточно прав для выполнения операции' });
       }
       return Card.findByIdAndRemove(id);
     })
@@ -45,7 +43,6 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .orFail()
     .then((card) => res.send({ data: card }))
     .catch(() => {
       throw new NotFoundError({ message: 'Карточка не найдена' });
@@ -59,7 +56,6 @@ module.exports.dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .orFail()
     .catch(() => {
       throw new NotFoundError({ message: 'Карточка не найдена' });
     })

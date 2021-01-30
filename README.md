@@ -14,9 +14,12 @@
 **Тема: Основы бэкенда для фронтенд-разработчиков**
 
 
-## Страница проекта
+## Страницы проекта
 
-[Перейти>](https://kirill251111.students.nomoredomains.work)
+фронтенд    
+[Перейти>](https://kirill251111.students.nomoredomains.work)    
+бэкенд  
+[Перейти>](https://api.kirill251111.students.nomoredomains.work)
 
 
 ## Технологии

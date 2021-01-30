@@ -203,7 +203,6 @@ function App() {
         const newCards = cards.map((currentCard) => (
           currentCard.id === card.id ? changedCard : currentCard
         ));
-        // Обновляем состояние
         setCards(newCards);
       })
       .catch((err) => {

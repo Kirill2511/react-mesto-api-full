@@ -3,26 +3,23 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 const UnauthorizedError = require('../errors/401_UnauthorizedError');
 
-const { requiredTrue, min, max } = require('../libs/validationParameters');
+const { min, max } = require('../libs/validationParameters');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     minlength: min(2),
     maxlength: max(30),
-    required: requiredTrue,
     default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
     minlength: min(2),
     maxlength: max(30),
-    require: requiredTrue,
     default: 'Исследователь',
   },
   avatar: {
     type: String,
-    require: requiredTrue,
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Не верный формат почты',
