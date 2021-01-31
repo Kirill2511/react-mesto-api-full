@@ -5,10 +5,8 @@ export default class Api {
   }
 
   _getResponseData(res) {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    if (res.ok) return res.json();
+    return Promise.reject(res.status);
   }
 
   getInitialCards() {
@@ -86,6 +84,7 @@ export default class Api {
 export const api = new Api({
   url: 'https://api.kirill251111.students.nomoredomains.work',
   headers: {
-    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
   },
 });

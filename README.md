@@ -19,7 +19,8 @@
 фронтенд    
 [Перейти>](https://kirill251111.students.nomoredomains.work)    
 бэкенд  
-[Перейти>](https://api.kirill251111.students.nomoredomains.work)
+[Перейти>](https://api.kirill251111.students.nomoredomains.work)                                
+84.201.174.227
 
 
 ## Технологии

@@ -36,7 +36,6 @@ module.exports.password = Joi
 
 module.exports.link = Joi
   .string()
-  .required()
   .uri()
   .messages({
     'string.base': string,
@@ -47,7 +46,6 @@ module.exports.link = Joi
 
 module.exports.avatar = Joi
   .string()
-  .required()
   .custom(uriCustomScheme)
   .messages({
     'string.base': string,
@@ -58,7 +56,6 @@ module.exports.avatar = Joi
 
 module.exports.name = Joi
   .string()
-  .required()
   .min(2)
   .max(30)
   .messages({
@@ -71,7 +68,6 @@ module.exports.name = Joi
 
 module.exports.about = Joi
   .string()
-  .required()
   .min(2)
   .max(30)
   .messages({

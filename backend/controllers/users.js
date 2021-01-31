@@ -51,14 +51,13 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getAllUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ data: users }))
+    .then((users) => res.status(200).send({ data: users }))
     .catch(next);
 };
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
-
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.status(200).send({ data: user }))
     .catch(() => {
       throw new NotFoundError({ message: 'Пользователь не найден' });
     })

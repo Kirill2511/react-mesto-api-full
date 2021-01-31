@@ -24,7 +24,19 @@ const { login, createUser } = require('./controllers/users');
 const app = express();
 const { PORT = 3000 } = process.env;
 
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'http://localhost:3001',
+    'https://api.kirill251111.students.nomoredomains.work',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use('*', cors(corsOptions));
 
 app.use(cookieParser());
 
@@ -66,14 +78,12 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  if (err.status !== '500') {
-    res.status(err.status)
-      .send(err.message);
-    return;
+  if (err.status) {
+    res.status(err.status).send(err.message);
+  } else {
+    res.status(500).send({ message: 'Что-то пошло не так.' });
   }
-  res.status(500)
-    .send({ message: `На сервере произошла ошибка: ${err.message}` });
-  next();
+  if (next) next();
 });
 
 app.listen(PORT, () => {

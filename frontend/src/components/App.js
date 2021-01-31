@@ -17,6 +17,7 @@ import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute';
+import NotFound from './NotFound';
 import authSuccess from '../images/authSuccess.svg';
 import authError from '../images/authError.svg';
 
@@ -42,12 +43,12 @@ function App() {
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      setLoggingIn(true);
       auth
         .checkToken(jwt)
         .then((res) => {
           if (res) {
             setEmail(res.data.email);
-            setLoggingIn(true);
             history.push('/');
           }
         })
@@ -61,7 +62,7 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, [tokenCheck]);
+  }, []);
 
   function onRegister(email, password) {
     auth
@@ -312,8 +313,13 @@ function App() {
           <Route path="/signup">
             <Register onRegister={onRegister} />
           </Route>
-          <Route>
-            {loggingIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+          <Route exact path="/">
+            {
+              loggingIn ? <Redirect to="/" /> : <Redirect to="/signin" />
+            }
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
         {loggingIn && <Footer />}
