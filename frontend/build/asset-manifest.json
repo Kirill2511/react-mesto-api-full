@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "./static/css/main.9849ed1c.chunk.css",
-    "main.js": "./static/js/main.8e1c7bf3.chunk.js",
-    "main.js.map": "./static/js/main.8e1c7bf3.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.1fb606cd.js",
-    "runtime-main.js.map": "./static/js/runtime-main.1fb606cd.js.map",
-    "static/js/2.9cb86448.chunk.js": "./static/js/2.9cb86448.chunk.js",
-    "static/js/2.9cb86448.chunk.js.map": "./static/js/2.9cb86448.chunk.js.map",
-    "static/js/3.415f518b.chunk.js": "./static/js/3.415f518b.chunk.js",
-    "static/js/3.415f518b.chunk.js.map": "./static/js/3.415f518b.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/main.9849ed1c.chunk.css.map": "./static/css/main.9849ed1c.chunk.css.map",
-    "static/js/2.9cb86448.chunk.js.LICENSE.txt": "./static/js/2.9cb86448.chunk.js.LICENSE.txt",
-    "static/media/index.css": "./static/media/like.49570bcb.svg",
-    "static/media/authError.df8eddf6.svg": "./static/media/authError.df8eddf6.svg",
-    "static/media/authSuccess.1b6082f8.svg": "./static/media/authSuccess.1b6082f8.svg",
-    "static/media/logo.a307e1c4.svg": "./static/media/logo.a307e1c4.svg"
+    "main.css": "/static/css/main.b663160d.chunk.css",
+    "main.js": "/static/js/main.72d67bfd.chunk.js",
+    "main.js.map": "/static/js/main.72d67bfd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.825283f3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.825283f3.js.map",
+    "static/js/2.9cb86448.chunk.js": "/static/js/2.9cb86448.chunk.js",
+    "static/js/2.9cb86448.chunk.js.map": "/static/js/2.9cb86448.chunk.js.map",
+    "static/js/3.415f518b.chunk.js": "/static/js/3.415f518b.chunk.js",
+    "static/js/3.415f518b.chunk.js.map": "/static/js/3.415f518b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.b663160d.chunk.css.map": "/static/css/main.b663160d.chunk.css.map",
+    "static/js/2.9cb86448.chunk.js.LICENSE.txt": "/static/js/2.9cb86448.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/like.49570bcb.svg",
+    "static/media/authError.df8eddf6.svg": "/static/media/authError.df8eddf6.svg",
+    "static/media/authSuccess.1b6082f8.svg": "/static/media/authSuccess.1b6082f8.svg",
+    "static/media/logo.a307e1c4.svg": "/static/media/logo.a307e1c4.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.1fb606cd.js",
+    "static/js/runtime-main.825283f3.js",
     "static/js/2.9cb86448.chunk.js",
-    "static/css/main.9849ed1c.chunk.css",
-    "static/js/main.8e1c7bf3.chunk.js"
+    "static/css/main.b663160d.chunk.css",
+    "static/js/main.72d67bfd.chunk.js"
   ]
 }

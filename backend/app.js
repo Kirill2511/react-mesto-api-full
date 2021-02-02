@@ -24,19 +24,7 @@ const { login, createUser } = require('./controllers/users');
 const app = express();
 const { PORT = 3000 } = process.env;
 
-const corsOptions = {
-  origin: [
-    'http://localhost:3001',
-    'https://api.kirill251111.students.nomoredomains.work',
-  ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
-  credentials: true,
-};
-
-app.use('*', cors(corsOptions));
+app.use(cors());
 
 app.use(cookieParser());
 
@@ -69,7 +57,7 @@ app.post('/signup', validateRegister, createUser);
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, cardsRouter);
 
-app.use(() => {
+app.use('/*', () => {
   throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
 });
 

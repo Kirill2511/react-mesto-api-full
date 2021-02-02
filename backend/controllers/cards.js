@@ -25,17 +25,23 @@ module.exports.deleteCard = (req, res, next) => {
   const { id } = req.params;
 
   Card.findById(id)
+    .orFail(new NotFoundError({ message: 'Карточки не существует' }))
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError({ message: 'Текущей карточки не существует' });
-      }
-      if (JSON.stringify(card.owner) !== JSON.stringify(req.user._id)) {
+      if (card.owner.toString() !== req.user._id) {
         throw new ForbiddenError({ message: 'Невозможно удалить данную карточку' });
       }
-      return Card.findByIdAndRemove(id);
+      card.remove()
+        .then(() => res.status(200).send({ message: 'Карточка удалена' }));
     })
-    .then((card) => res.status(200).send({ data: card }))
-    .catch(next);
+    .catch((err) => {
+      if (err.message === 'NotFoundError') {
+        return NotFoundError({ message: 'Карточка с таким id не найдена' });
+      }
+      if (err.message === 'ForbiddenError') {
+        return ForbiddenError({ message: 'Недостаточно прав' });
+      }
+      return next(err);
+    })
 };
 
 module.exports.likeCard = (req, res, next) => {
@@ -46,11 +52,16 @@ module.exports.likeCard = (req, res, next) => {
   )
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Карточка не найдена');
+        throw new NotFoundError(`Карточка с ${req.params.cardId} не найдена`);
       }
       res.status(200).send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.message) {
+        return NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
+      }
+      return next(err);
+    });
 };
 
 module.exports.dislikeCard = (req, res, next) => {
@@ -60,10 +71,15 @@ module.exports.dislikeCard = (req, res, next) => {
     { new: true },
   )
     .then((card) => {
-      if (!card) {
-        throw new NotFoundError('Карточка не найдена');
+      if (card === null) {
+        throw new NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
       }
-      res.status(200).send({ data: card });
+      return res.status(200).send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.message) {
+        throw new NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
+      }
+      return next(err);
+    });
 };

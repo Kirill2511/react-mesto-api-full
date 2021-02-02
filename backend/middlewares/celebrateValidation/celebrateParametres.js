@@ -2,7 +2,7 @@ const { Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
 
 const {
-  string, empty, min, max, required, emailMessage, uri, excess, alphanum, length, hex,
+  string, empty, min, max, required, emailMessage, uri, excess, alphanum, length,
 } = require('../../libs/joiMessages');
 
 const uriCustomScheme = (value) => {
@@ -88,7 +88,6 @@ module.exports._id = Joi
     'string.empty': empty,
     'string.alphanum': alphanum,
     'string.length': length,
-    'string.hex': hex,
     'any.required': required,
   });
 

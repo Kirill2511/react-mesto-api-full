@@ -2,13 +2,13 @@
   "author": {
     "name": "Kirill Larionov",
     "email": "kirill.kirill2@yandex.ru",
-    "url": "https://kirill2511.github.io/react-mesto-auth/"
+    "url": "https://kirill2511.github.io/react-mesto-auth"
   },
   "description": "Сервис, где люди делятся фотографиями интересных мест",
   "name": "react-mesto-auth",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "https://kirill251111.students.nomoredomains.work",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

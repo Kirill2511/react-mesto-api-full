@@ -56,11 +56,22 @@ module.exports.getAllUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.user._id)
+  User.findById(req.params._id === 'me' ? req.user : req.params._id)
+    .orFail(new NotFoundError('Не существует данного id'))
     .then((user) => res.status(200).send({ data: user }))
-    .catch(() => {
-      throw new NotFoundError({ message: 'Пользователь не найден' });
+    .catch((err) => {
+      if (err.kind === 'ObjectId') {
+        throw new BadRequestError({ message: `Пользователь c айди ${req.params._id} не найден` });
+      }
+      throw err;
     })
+    .catch(next);
+};
+
+module.exports.getUserInfo = (req, res, next) => {
+  User.findById(req.user._id)
+    .orFail(new NotFoundError({ message: 'Такой пользователь отсутствует в базе' }))
+    .then((user) => res.status(200).send({ data: user }))
     .catch(next);
 };
 

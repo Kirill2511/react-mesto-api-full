@@ -17,7 +17,6 @@ import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import * as auth from '../utils/auth';
 import ProtectedRoute from './ProtectedRoute';
-import NotFound from './NotFound';
 import authSuccess from '../images/authSuccess.svg';
 import authError from '../images/authError.svg';
 
@@ -43,12 +42,12 @@ function App() {
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      setLoggingIn(true);
       auth
         .checkToken(jwt)
         .then((res) => {
           if (res) {
             setEmail(res.data.email);
+            setLoggingIn(true);
             history.push('/');
           }
         })
@@ -69,9 +68,9 @@ function App() {
       .register(email, password)
       .then((res) => {
         if (res.data.email) {
+          setLoggingIn(true);
           setIsInfoTooltipOpen(true);
           setTooltipImage(authSuccess);
-          setLoggingIn(true);
           setMessage('Вы успешно зарегистрировались!');
           history.push('/signin');
         }
@@ -90,9 +89,9 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
-          setLoggingIn(true);
           setEmail(email);
           history.push('/');
+          setLoggingIn(true);
         }
       })
       .catch((error) => {
@@ -313,16 +312,13 @@ function App() {
           <Route path="/signup">
             <Register onRegister={onRegister} />
           </Route>
-          <Route exact path="/">
+          <Route path="/">
             {
               loggingIn ? <Redirect to="/" /> : <Redirect to="/signin" />
             }
           </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
         </Switch>
-        {loggingIn && <Footer />}
+        <Footer />
 
         {/* Попат обновления аватара */}
         <EditAvatarPopup

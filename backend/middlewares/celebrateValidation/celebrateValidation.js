@@ -5,7 +5,9 @@ const {
 
 //
 module.exports.validateRegister = celebrate({
-  body: Joi.object().keys({ email, password })
+  body: Joi.object().keys({
+    email, password, name, about, avatar,
+  })
     .messages(excessObjects),
 });
 
@@ -20,7 +22,7 @@ module.exports.validateCard = celebrate({
 });
 
 module.exports.validateId = celebrate({
-  body: Joi.object().keys({ _id })
+  params: Joi.object().keys({ _id })
     .messages(excessObjects),
 });
 
