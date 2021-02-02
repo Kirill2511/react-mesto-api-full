@@ -82,19 +82,9 @@ export default class Api {
 }
 
 export const api = new Api({
-  url: 'http://localhost:3000',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json;charset=utf-8',
-  },
-});
-
-/*
-export const api = new Api({
   url: 'https://api.kirill251111.students.nomoredomains.work',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json;charset=utf-8',
   },
 });
-*/

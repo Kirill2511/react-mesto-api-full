@@ -22,7 +22,7 @@ module.exports.validateCard = celebrate({
 });
 
 module.exports.validateId = celebrate({
-  params: Joi.object().keys({ _id })
+  body: Joi.object().keys({ _id })
     .messages(excessObjects),
 });
 
