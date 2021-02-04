@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 const {
-  email, password, link, name, about, avatar, _id, excessObjects,
+  email, password, link, name, about, avatar, _id, id, cardId, excessObjects,
 } = require('./celebrateParametres');
 
 //
@@ -22,7 +22,17 @@ module.exports.validateCard = celebrate({
 });
 
 module.exports.validateId = celebrate({
-  body: Joi.object().keys({ _id })
+  params: Joi.object().keys({ _id })
+    .messages(excessObjects),
+});
+
+module.exports.validateCardId = celebrate({
+  params: Joi.object().keys({ id })
+    .messages(excessObjects),
+});
+
+module.exports.validateCardLikeId = celebrate({
+  params: Joi.object().keys({ cardId })
     .messages(excessObjects),
 });
 

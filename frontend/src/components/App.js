@@ -90,8 +90,8 @@ function App() {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setEmail(email);
-          history.push('/');
           setLoggingIn(true);
+          history.push('/');
         }
       })
       .catch((error) => {
@@ -168,6 +168,7 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    setIsLoading(true);
     Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([cards, userData]) => {
         const { data } = userData;
@@ -184,6 +185,7 @@ function App() {
           owner: item.owner,
           id: item._id,
         })));
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);

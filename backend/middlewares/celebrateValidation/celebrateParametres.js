@@ -36,12 +36,11 @@ module.exports.password = Joi
 
 module.exports.link = Joi
   .string()
-  .uri()
+  .custom(uriCustomScheme)
   .messages({
     'string.base': string,
     'string.empty': empty,
-    'string.uri': uri,
-    'any.required': required,
+    'any.custom': uri,
   });
 
 module.exports.avatar = Joi
@@ -51,7 +50,6 @@ module.exports.avatar = Joi
     'string.base': string,
     'string.empty': empty,
     'any.custom': uri,
-    'any.required': required,
   });
 
 module.exports.name = Joi
@@ -63,7 +61,6 @@ module.exports.name = Joi
     'string.empty': empty,
     'string.min': min,
     'string.max': max,
-    'any.required': required,
   });
 
 module.exports.about = Joi
@@ -75,7 +72,6 @@ module.exports.about = Joi
     'string.empty': empty,
     'string.min': min,
     'string.max': max,
-    'any.required': required,
   });
 
 module.exports._id = Joi
@@ -88,7 +84,30 @@ module.exports._id = Joi
     'string.empty': empty,
     'string.alphanum': alphanum,
     'string.length': length,
-    'any.required': required,
+  });
+
+module.exports.id = Joi
+  .string()
+  .alphanum()
+  .length(24)
+  .hex()
+  .messages({
+    'string.base': string,
+    'string.empty': empty,
+    'string.alphanum': alphanum,
+    'string.length': length,
+  });
+
+module.exports.cardId = Joi
+  .string()
+  .alphanum()
+  .length(24)
+  .hex()
+  .messages({
+    'string.base': string,
+    'string.empty': empty,
+    'string.alphanum': alphanum,
+    'string.length': length,
   });
 
 module.exports.excessObjects = {

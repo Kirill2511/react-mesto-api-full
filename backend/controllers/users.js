@@ -57,7 +57,7 @@ module.exports.getAllUsers = (req, res, next) => {
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.params._id === 'me' ? req.user : req.params._id)
-    .orFail(new NotFoundError('Не существует данного id'))
+    .orFail(new NotFoundError({ message: 'Не существует данного id' }))
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
       if (err.kind === 'ObjectId') {

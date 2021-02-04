@@ -48,7 +48,7 @@ function EditProfilePopup(props) {
           minLength="2"
           name="name"
           placeholder="Имя"
-          required
+          required="required"
           type="text"
         />
         <span className="popup__input-error" id="name-input-error" />
@@ -63,7 +63,7 @@ function EditProfilePopup(props) {
           minLength="2"
           name="about"
           placeholder="Обо мне"
-          required
+          required="required"
           type="text"
         />
         <span className="popup__input-error" id="activity-input-error" />;

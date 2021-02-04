@@ -22,13 +22,11 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  const { id } = req.params;
-
-  Card.findById(id)
+  Card.findById(req.params.id)
     .orFail(new NotFoundError({ message: 'Карточки не существует' }))
     .then((card) => {
       if (card.owner.toString() !== req.user._id) {
-        throw new ForbiddenError({ message: 'Невозможно удалить данную карточку' });
+        throw new ForbiddenError({ message: 'Невозможно удалить чужую карточку' });
       }
       card.remove()
         .then(() => res.status(200).send({ message: 'Карточка удалена' }));
@@ -41,45 +39,31 @@ module.exports.deleteCard = (req, res, next) => {
         return ForbiddenError({ message: 'Недостаточно прав' });
       }
       return next(err);
-    })
+    });
 };
 
 module.exports.likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
+  Card.findByIdAndUpdate(req.params.cardId,
     { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
+    { new: true })
     .then((card) => {
       if (!card) {
-        throw new NotFoundError(`Карточка с ${req.params.cardId} не найдена`);
-      }
-      res.status(200).send({ data: card });
-    })
-    .catch((err) => {
-      if (err.message) {
-        return NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
-      }
-      return next(err);
-    });
-};
-
-module.exports.dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((card) => {
-      if (card === null) {
-        throw new NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
+        throw new NotFoundError({ message: `Не существует карточки с id ${req.params.cardId}` });
       }
       return res.status(200).send({ data: card });
     })
-    .catch((err) => {
-      if (err.message) {
-        throw new NotFoundError({ message: `Карточка с ${req.params.cardId} не найдена` });
+    .catch(next);
+};
+
+module.exports.dislikeCard = (req, res, next) => {
+  Card.findByIdAndUpdate(req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { runValidators: true, new: true })
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError({ message: `Не существует карточки с id ${req.params.cardId}` });
       }
-      return next(err);
-    });
+      return res.status(200).send({ data: card });
+    })
+    .catch(next);
 };
